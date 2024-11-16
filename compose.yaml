@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+
+  # postgres service
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    # restart: unless-stopped
+
+  # qdrant service
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    restart: unless-stopped
+
+  # pgadmin service
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "8008:80"
+    depends_on:
+      - postgres
+    # restart: unless-stopped
+
+  # open-webui service with build context
+  open-webui:
+    build:
+      context: ./open-webui # Path to the folder containing the Dockerfile
+      dockerfile: Dockerfile # Optional: Specify the Dockerfile name if not "Dockerfile"
+      args:
+        SOME_ARG: value # Optional: Pass build arguments
+    container_name: open-webui
+    ports:
+      - "3000:8080"
+    volumes:
+      - ./open-webui-data:/app/backend/data
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    # restart: unless-stopped
+
+volumes:
+  postgres_data:
+  qdrant_storage:
+  open-webui-data:
