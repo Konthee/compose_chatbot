@@ -1,6 +1,6 @@
 open-webui-data/*
 qdrant_storage/*
-
+postgres_data/db/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
