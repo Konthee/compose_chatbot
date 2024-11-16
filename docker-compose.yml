@@ -47,7 +47,11 @@ services:
     volumes:
       - ./open-webui-data:/app/backend/data
     environment:
-      OLLAMA_BASE_URL: http://ollama:11434
+      OPENAI_API_BASE_URLS: https://api.groq.com/openai/v1  # Groq API base URL
+      OPENAI_API_KEYS: ${GROQ_API_KEY}  # Groq API key
+      # OLLAMA_BASE_URL: http://ollama:11434
+      # RAG_EMBEDDING_MODEL: BAAI/bge-m3
+      # RAG_RERANKING_MODEL: BAAI/bge-reranker-v2-m3
     extra_hosts:
       - "host.docker.internal:host-gateway"
     # restart: unless-stopped

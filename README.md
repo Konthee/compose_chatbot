@@ -1,7 +1,12 @@
 # compose_chatbot
-build docker compose
 
+
+### build docker compose
 ```
 docker-compose up --build
 ```
 
+### stop compose 
+```
+docker-compose down
+```
