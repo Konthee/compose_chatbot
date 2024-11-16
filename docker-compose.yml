@@ -40,11 +40,7 @@ services:
 
   # open-webui service with build context
   open-webui:
-    build:
-      context: ./open-webui # Path to the folder containing the Dockerfile
-      dockerfile: Dockerfile # Optional: Specify the Dockerfile name if not "Dockerfile"
-      args:
-        SOME_ARG: value # Optional: Pass build arguments
+    image: ghcr.io/open-webui/open-webui:main  # Pulling the image instead of building
     container_name: open-webui
     ports:
       - "3000:8080"
