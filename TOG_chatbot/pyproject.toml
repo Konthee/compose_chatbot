@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+
+[project]
+name = "tog_chatbot"
+version = "0.1.0"
+description = "rag tog_chatbot"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = ["Programming Language :: Python :: 3"]
+
+dependencies = [
+    "pandas",
+    "numpy",
+    "openai",
+    "python-multipart",
+    "python-dotenv",
+    "gdown",
+    "PyMuPDF",
+    "psycopg2-binary",
+    "sqlalchemy",
+    "jq" ,
+    "langchain_community",
+    "sentence-transformers",
+    "transformers",
+    "accelerate",
+    "langchain-groq",
+    "langchain-openai",
+    "langchain-huggingface",
+    "langchain-postgres==0.0.12",
+    "langchain_qdrant",
+    "fastembed",
+    "openpyxl",
+    'openai' ,
+    'langchain' ,
+    'lxml' , 
+    'bs4' , 
+    'playwright' ,
+    'nest-asyncio' ,
+    'tiktoken',
+    'fastapi[standard]' ,
+    'uvicorn',
+    'watchdog' ,
+    'streamlit' ,
+    'plotly',
+]
