@@ -20,7 +20,7 @@ class Pipeline:
         self.valves = self.Valves(
             **{
                 "OPENAI_API_KEY": os.getenv(
-                    "OPENAI_API_KEY", "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"
+                    "OPENAI_API_KEY", ""
                 )
             }
         )
@@ -44,12 +44,10 @@ class Pipeline:
 
         print(messages)
         print(user_message)
-
-        OPENAI_API_KEY = self.valves.OPENAI_API_KEY
         MODEL = "llama-3.1-70b-versatile"
-
+        
         headers = {}
-        headers["Authorization"] = f"Bearer {OPENAI_API_KEY}"
+        headers["Authorization"] = f"Bearer {self.valves.OPENAI_API_KEY}"
         headers["Content-Type"] = "application/json"
 
         payload = {**body, "model": MODEL}
@@ -68,16 +66,16 @@ class Pipeline:
                 url="https://api.groq.com/openai/v1/chat/completions",
                 json=payload,
                 headers=headers,
-                stream=False,
+                stream=True,
             )
 
             r.raise_for_status()
 
             if body["stream"]:
-                print(r.json())
                 return r.iter_lines()
             else:
-                print(r.json())
                 return r.json()
         except Exception as e:
             return f"Error: {e}"
+
+        
